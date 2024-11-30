@@ -82,6 +82,7 @@ class Trainer:
                     self.logger.info(f"Epoch {epoch+1}/{self.epochs}, Val Metric: {metric}")
                 elif not self.distributed:
                     self.logger.info(f"Epoch {epoch+1}/{self.epochs}, Val Metric: {metric}")
+                self.model.train()
 
         return train_loss / len(self.train_loader.dataset)
 

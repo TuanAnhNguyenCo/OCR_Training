@@ -70,9 +70,9 @@ Metric:
 Train:
   dataset:
     name: SimpleDataSet
-    data_dir: /Users/tuananh/Desktop/AI/PaddleOCR/
+    data_dir: ./
     label_file_list:
-      - /Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt
+      - dataset/train.txt
     ratio_list: [1.0]
     transforms:
     - DecodeImage:
@@ -138,9 +138,9 @@ Train:
 Eval:
   dataset:
     name: SimpleDataSet
-    data_dir: /Users/tuananh/Desktop/AI/PaddleOCR/
+    data_dir: ./
     label_file_list:
-      - /Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt
+      - dataset/val.txt
     transforms:
     - DecodeImage:
         img_mode: BGR

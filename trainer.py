@@ -92,9 +92,9 @@ class Trainer:
         with torch.no_grad():
             for batch in tqdm(self.val_loader,desc='Validation'):
                 if self.distributed:
-                    batch[0].to(self.local_rank)
+                    batch[0] = batch[0].to(self.local_rank)
                 else:
-                    batch[0].to(self.device)
+                    batch[0] = batch[0].to(self.device)
                 output = self.model(batch[0])
                 output = {key:value.cpu().numpy() for key, value in output.items()}
                 batch_numpy = []

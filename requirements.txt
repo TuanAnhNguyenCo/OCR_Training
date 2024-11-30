@@ -1,0 +1,20 @@
+paddlepaddle==3.0.0b2
+shapely
+scikit-image
+pyclipper
+lmdb
+tqdm
+numpy
+rapidfuzz
+opencv-python
+opencv-contrib-python
+cython
+Pillow
+pyyaml
+requests
+albumentations==1.4.10
+# to be compatible with albumentations
+albucore==0.0.13
+torch==2.5.1
+torchvision
+timm

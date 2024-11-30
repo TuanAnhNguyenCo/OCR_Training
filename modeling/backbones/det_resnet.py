@@ -17,7 +17,7 @@ class Resnet(nn.Module):
         )
         out_indices = out_indices if out_indices is not None else (1,2,3)
         print("Resnet Backbone with {} layers created".format(layers))
-        self.out_channels = [256, 512, 1024, 2048]
+        self.out_channels = [256, 512, 1024, 2048] if layers >= 50 else [64, 128, 256, 512]
         self.backbone = timm.create_model(f'resnet{layers}', features_only=True, out_indices=out_indices, pretrained=True)
         self.layer4 = nn.Sequential(
             Bottleneck(self.out_channels[-2], self.out_channels[-3], downsample=nn.Sequential(

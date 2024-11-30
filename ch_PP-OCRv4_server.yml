@@ -4,12 +4,10 @@ Global:
   use_gpu: false
   epoch_num: &epoch_num 500
   log_smooth_window: 20
-  print_batch_step: 10
+  print_batch_step: 100
   save_model_dir: ./output/ch_PP-OCRv4
   save_epoch_step: 10
-  eval_batch_step:
-  - 0
-  - 1500
+  eval_batch_step: 2000
   cal_metric_during_train: false
   checkpoints:
   # pretrained_model: https://paddleocr.bj.bcebos.com/pretrained/PPHGNet_small_ocr_det.pdparams
@@ -24,10 +22,10 @@ Architecture:
   Transform: null
   Backbone:
     name: Resnet
-    layers: 101
+    layers: 18
   Neck:
     name: LKPAN
-    out_channels: 256
+    out_channels: 128
     intracl: true
   Head:
     name: PFHeadLocal
@@ -54,7 +52,7 @@ Optimizer:
     warmup_epoch: 2
   regularizer:
     name: L2
-    factor: 1e-6
+    factor: 1e-4
 
 PostProcess:
   name: DBPostProcess
@@ -70,9 +68,9 @@ Metric:
 Train:
   dataset:
     name: SimpleDataSet
-    data_dir: ./
+    data_dir: /Users/tuananh/Desktop/AI/PaddleOCR/
     label_file_list:
-      - dataset/train.txt
+      - /Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt
     ratio_list: [1.0]
     transforms:
     - DecodeImage:
@@ -132,15 +130,15 @@ Train:
   loader:
     shuffle: true
     drop_last: false
-    batch_size_per_card: 2
+    batch_size_per_card: 8
     num_workers: 2
 
 Eval:
   dataset:
     name: SimpleDataSet
-    data_dir: ./
+    data_dir: /Users/tuananh/Desktop/AI/PaddleOCR/
     label_file_list:
-      - dataset/val.txt
+      - /Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt
     transforms:
     - DecodeImage:
         img_mode: BGR
@@ -168,6 +166,6 @@ Eval:
   loader:
     shuffle: false
     drop_last: false
-    batch_size_per_card: 1
-    num_workers: 1
+    batch_size_per_card: 8
+    num_workers: 2
 profiler_options: null

@@ -3,12 +3,13 @@ import torch
 import torch.nn as nn
 from torch.optim.lr_scheduler import CosineAnnealingLR
 import torch.distributed as dist
+from tqdm.auto import tqdm
 
 class Trainer:
     def __init__(self, model, train_loader, val_loader, optimizer_config, loss_fn,
                  epochs, lr_scheduler=None, grad_accum_steps=1,device = 'cpu', train_sampler=None,
                  checkpoint_dir='./checkpoints', distributed=False, log_interval=10, logger = None,
-                 post_process_func=None,metric_class = None
+                 post_process_func=None,metric_class = None, eval_batch_step = 1000
                  ):
 
         self.model = model
@@ -27,6 +28,7 @@ class Trainer:
         self.train_sampler = train_sampler
         self.post_process_func = post_process_func
         self.metric_class = metric_class
+        self.eval_batch_step = eval_batch_step
         os.makedirs(self.checkpoint_dir, exist_ok=True)
 
 
@@ -43,7 +45,7 @@ class Trainer:
     def train_epoch(self, epoch):
         self.model.train()
         train_loss = 0.0
-        for batch_idx, batch in enumerate(self.train_loader):
+        for batch_idx, batch in enumerate(tqdm(self.train_loader, desc='Training')):
             if self.distributed:
                 batch = [b.to(self.local_rank) for b in batch]
             else:
@@ -67,12 +69,19 @@ class Trainer:
             train_loss += optimized_loss.item() * batch[0].shape[0]
 
             if batch_idx % self.log_interval == 0:
+                loss_ = {key: value.item() for key, value in loss.items()}
                 if self.distributed and dist.get_rank() == 0:
                     self.logger.info(f"Train Epoch: {epoch+1} [{batch_idx * batch[0].shape[0]}/{len(self.train_loader.dataset)} "
-                          f"({100. * batch_idx / len(self.train_loader):.0f}%)]\tLoss: {loss}")
+                          f"({100. * batch_idx / len(self.train_loader):.0f}%)]\tLoss: {loss_}")
                 elif not self.distributed:
                     self.logger.info(f"Train Epoch: {epoch+1} [{batch_idx * batch[0].shape[0]}/{len(self.train_loader.dataset)} "
-                          f"({100. * batch_idx / len(self.train_loader):.0f}%)]\tLoss: {loss}")
+                          f"({100. * batch_idx / len(self.train_loader):.0f}%)]\tLoss: {loss_}")
+            if batch_idx % self.eval_batch_step == 0 and batch_idx > 0:
+                metric = self.validate()
+                if self.distributed and dist.get_rank() == 0:
+                    self.logger.info(f"Epoch {epoch+1}/{self.epochs}, Val Metric: {metric}")
+                elif not self.distributed:
+                    self.logger.info(f"Epoch {epoch+1}/{self.epochs}, Val Metric: {metric}")
 
         return train_loss / len(self.train_loader.dataset)
 
@@ -81,7 +90,7 @@ class Trainer:
         val_loss = 0.0
         metric = {'precision': 0, 'recall': 0.0, 'hmean': 0}
         with torch.no_grad():
-            for batch in self.val_loader:
+            for batch in tqdm(self.val_loader,desc='Validation'):
                 if self.distributed:
                     batch[0].to(self.local_rank)
                 else:

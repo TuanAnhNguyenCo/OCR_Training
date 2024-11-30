@@ -114,14 +114,15 @@ def main(config,logger, device, seed):
         optimizer_config=config["Optimizer"],
         loss_fn=loss_class,
         epochs=global_config["epoch_num"],
-        grad_accum_steps=min(1, 8//config['Train']['loader']['batch_size_per_card']),
+        grad_accum_steps=min(1, 64//config['Train']['loader']['batch_size_per_card']),
         distributed=global_config["distributed"],
         log_interval=global_config["print_batch_step"],
         logger=logger,
         device=device,
         train_sampler=train_sampler,
         post_process_func=post_process_func,
-        metric_class = metric_class
+        metric_class = metric_class,
+        eval_batch_step = global_config["eval_batch_step"],
     )
     trainer.train()
 
@@ -131,4 +132,3 @@ if __name__ == "__main__":
     seed = config["Global"]["seed"] if "seed" in config["Global"] else 1024
     set_seed(seed)
     main(config, logger, "mps", seed)
-    # test_reader(config, device, logger)

@@ -225,8 +225,6 @@ class DBPostProcess(object):
         return cv2.mean(bitmap[ymin : ymax + 1, xmin : xmax + 1], mask)[0]
 
     def __call__(self, outs_dict, shape_list):
-        print(shape_list)
-        exit()
         pred = outs_dict["maps"]
         if isinstance(pred, paddle.Tensor):
             pred = pred.numpy()

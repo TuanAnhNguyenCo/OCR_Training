@@ -7,7 +7,9 @@ import torch.distributed as dist
 class Trainer:
     def __init__(self, model, train_loader, val_loader, optimizer_config, loss_fn,
                  epochs, lr_scheduler=None, grad_accum_steps=1,device = 'cpu', train_sampler=None,
-                 checkpoint_dir='./checkpoints', distributed=False, log_interval=10, logger = None):
+                 checkpoint_dir='./checkpoints', distributed=False, log_interval=10, logger = None,
+                 post_process_func=None,metric_class = None
+                 ):
 
         self.model = model
         self.train_loader = train_loader
@@ -23,6 +25,8 @@ class Trainer:
         self.logger = logger
         self.device = device
         self.train_sampler = train_sampler
+        self.post_process_func = post_process_func
+        self.metric_class = metric_class
         os.makedirs(self.checkpoint_dir, exist_ok=True)
 
 
@@ -34,7 +38,7 @@ class Trainer:
         # LR Scheduler
         self.lr_scheduler = CosineAnnealingLR(self.optimizer, T_max=epochs - self.optimizer_config['lr']['warmup_epoch'])
 
-        self.best_val_loss = float('inf')
+        self.best_hmean = -9999
 
     def train_epoch(self, epoch):
         self.model.train()
@@ -75,18 +79,26 @@ class Trainer:
     def validate(self):
         self.model.eval()
         val_loss = 0.0
+        metric = {'precision': 0, 'recall': 0.0, 'hmean': 0}
         with torch.no_grad():
             for batch in self.val_loader:
                 if self.distributed:
-                    batch = [b.to(self.local_rank) for b in batch]
+                    batch[0].to(self.local_rank)
                 else:
-                    batch = [b.to(self.device) for b in batch]
+                    batch[0].to(self.device)
                 output = self.model(batch[0])
-                loss = self.loss_fn(output, batch)
-                val_loss += loss.item() * batch[0].shape[0]
-        return val_loss / len(self.val_loader.dataset)
+                output = {key:value.cpu().numpy() for key, value in output.items()}
+                batch_numpy = []
+                batch = [b.cpu() for b in batch]
+                for item in batch:
+                    batch_numpy.append(item.numpy())
+                post_result = self.post_process_func(output, batch_numpy[1])
+                self.metric_class(post_result, batch_numpy)
+                metric = {key: value + metric[key] for key, value in self.metric_class.get_metric.items()}
 
-    def save_checkpoint(self, epoch, val_loss):
+        return {key:value/len(self.val_loader) for key, value in metric.items()}
+
+    def save_checkpoint(self, epoch):
         if self.distributed and dist.get_rank() != 0:
             return
 
@@ -95,7 +107,7 @@ class Trainer:
             'model_state_dict': self.model.module.state_dict() if self.distributed else self.model.state_dict(),
             'optimizer_state_dict': self.optimizer.state_dict(),
             'lr_scheduler_state_dict': self.lr_scheduler.state_dict(),
-            'best_val_loss': self.best_val_loss,
+            'best_h_mean': self.best_hmean,
         }
         torch.save(checkpoint, os.path.join(self.checkpoint_dir, 'checkpoint.pth'))
 
@@ -120,28 +132,28 @@ class Trainer:
             if self.distributed:
                 self.train_sampler.set_epoch(epoch)
             train_loss = self.train_epoch(epoch)
-            val_loss = self.validate()
+            metric = self.validate()
 
             if self.distributed:
                 dist.reduce(torch.tensor(val_loss, device=self.local_rank), 0)
                 if dist.get_rank() == 0:
                     val_loss = val_loss.item() / dist.get_world_size()
 
-            if val_loss < self.best_val_loss:
-                self.best_val_loss = val_loss
-                self.save_checkpoint(epoch, val_loss)
+            if metric['hmean'] > self.best_hmean:
+                self.best_hmean = metric['hmean']
+                self.save_checkpoint(epoch)
 
             if self.distributed and dist.get_rank() == 0:
-                self.logger.info(f"Epoch {epoch+1}/{self.epochs}, Train Loss: {train_loss:.4f}, Val Loss: {val_loss:.4f}")
+                self.logger.info(f"Epoch {epoch+1}/{self.epochs}, Train Loss: {train_loss:.4f}, Val Metric: {metric}")
             elif not self.distributed:
-                self.logger.info(f"Epoch {epoch+1}/{self.epochs}, Train Loss: {train_loss:.4f}, Val Loss: {val_loss:.4f}")
+                self.logger.info(f"Epoch {epoch+1}/{self.epochs}, Train Loss: {train_loss:.4f}, Val Metric: {metric}")
 
         # CosineAnnealingLR
         for epoch in range(self.optimizer_config['lr']['warmup_epoch'], self.epochs):
             if self.distributed:
                 self.train_sampler.set_epoch(epoch)
             train_loss = self.train_epoch(epoch)
-            val_loss = self.validate()
+            metric = self.validate()
 
             if self.distributed:
                 dist.reduce(torch.tensor(val_loss, device=self.local_rank), 0)
@@ -150,14 +162,14 @@ class Trainer:
 
             self.lr_scheduler.step()
 
-            if val_loss < self.best_val_loss:
-                self.best_val_loss = val_loss
-                self.save_checkpoint(epoch, val_loss)
+            if metric['hmean'] > self.best_hmean:
+                self.best_hmean = metric['hmean']
+                self.save_checkpoint(epoch)
 
             if self.distributed and dist.get_rank() == 0:
-                self.logger.info(f"Epoch {epoch+1}/{self.epochs}, Train Loss: {train_loss:.4f}, Val Loss: {val_loss:.4f}")
+                self.logger.info(f"Epoch {epoch+1}/{self.epochs}, Train Loss: {train_loss:.4f}, Val Metric: {metric}")
             elif not self.distributed:
-                self.logger.info(f"Epoch {epoch+1}/{self.epochs}, Train Loss: {train_loss:.4f}, Val Loss: {val_loss:.4f}")
+                self.logger.info(f"Epoch {epoch+1}/{self.epochs}, Train Loss: {train_loss:.4f}, Val Metric: {metric}")
 
         if self.distributed:
             dist.destroy_process_group()

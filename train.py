@@ -104,6 +104,8 @@ def main(config,logger, device, seed):
     logger.info("train dataloader has {} iters".format(len(train_dataloader)))
     if valid_dataloader is not None:
         logger.info("valid dataloader has {} iters".format(len(valid_dataloader)))
+    post_process_func = build_post_process(config["PostProcess"])
+    metric_class = build_metric(config["Metric"])
 
     trainer = Trainer(
         model=model,
@@ -117,7 +119,9 @@ def main(config,logger, device, seed):
         log_interval=global_config["print_batch_step"],
         logger=logger,
         device=device,
-        train_sampler=train_sampler
+        train_sampler=train_sampler,
+        post_process_func=post_process_func,
+        metric_class = metric_class
     )
     trainer.train()
 

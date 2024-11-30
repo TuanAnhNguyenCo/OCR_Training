@@ -103,7 +103,7 @@ class Trainer:
                     batch_numpy.append(item.numpy())
                 post_result = self.post_process_func(output, batch_numpy[1])
                 self.metric_class(post_result, batch_numpy)
-                metric = {key: value + metric[key] for key, value in self.metric_class.get_metric.items()}
+                metric = {key: value + metric[key] for key, value in self.metric_class.get_metric().items()}
 
         return {key:value/len(self.val_loader) for key, value in metric.items()}
 

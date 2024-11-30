@@ -71,7 +71,7 @@ def main(config,logger, device, seed):
     model = load_model(
         config, model
     )
-    device = torch.device("mps")
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
 
 

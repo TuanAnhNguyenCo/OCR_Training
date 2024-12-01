@@ -72,7 +72,7 @@ def main(config,logger, device, seed):
         config, model
     )
     if global_config['torch_compile']:
-        model = torch.compile(model, dynamic=True)
+        model = torch.compile(model, dynamic=True, mode="reduce-overhead")
     device = torch.device("cpu")
     model.to(device)
 

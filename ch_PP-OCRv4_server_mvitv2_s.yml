@@ -144,7 +144,7 @@ Eval:
         channel_first: false
     - DetLabelEncode: null
     - DetResizeForTest:
-      image_shape: [640, 640]
+        image_shape: [640, 640]
     - NormalizeImage:
         scale: 1./255.
         mean:

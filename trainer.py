@@ -8,7 +8,7 @@ from tqdm.auto import tqdm
 class Trainer:
     def __init__(self, model, train_loader, val_loader, optimizer_config, loss_fn,
                  epochs, lr_scheduler=None, grad_accum_steps=1,device = 'cpu', train_sampler=None,
-                 checkpoint_dir='./checkpoints', distributed=False, log_interval=10, logger = None,
+                 checkpoint_dir='./', distributed=False, log_interval=10, logger = None,
                  post_process_func=None,metric_class = None, eval_batch_step = 1000
                  ):
 
@@ -78,6 +78,9 @@ class Trainer:
                           f"({100. * batch_idx / len(self.train_loader):.0f}%)]\tLoss: {loss_}")
             if batch_idx % self.eval_batch_step == 0 and batch_idx > 0:
                 metric = self.validate()
+                if metric['hmean'] > self.best_hmean:
+                    self.best_hmean = metric['hmean']
+                    self.save_checkpoint(epoch)
                 if self.distributed and dist.get_rank() == 0:
                     self.logger.info(f"Epoch {epoch+1}/{self.epochs}, Val Metric: {metric}")
                 elif not self.distributed:

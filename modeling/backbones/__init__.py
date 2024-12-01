@@ -18,10 +18,16 @@ __all__ = ["build_backbone"]
 def build_backbone(config, model_type):
     if model_type == "det":
         from .det_resnet import Resnet
+        from .mvitv2 import mvit_v2_s
         support_dict = [
-            "Resnet"
+            "Resnet",
+            "MViTv2_S"
         ]
     module_name = config.pop("name")
+    
+    if module_name == "MViTv2_S":
+        return mvit_v2_s(**config)
+    
     assert module_name in support_dict, Exception(
         "when model typs is {}, backbone only support {}".format(
             model_type, support_dict

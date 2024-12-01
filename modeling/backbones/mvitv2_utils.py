@@ -470,7 +470,7 @@ class MultiscaleBlock(nn.Module):
         x_norm1 = self.norm1(x.transpose(1, 2)).transpose(1, 2) if self.needs_transposal else self.norm1(x)
         x_attn, thw_new = self.attn(x_norm1, thw)
         x = x if self.project is None or not self.proj_after_attn else self.project(x_norm1)
-        x_skip = x if self.pool_skip is None else self.pool_skip(x, thw)[0][1]
+        x_skip = x if self.pool_skip is None else self.pool_skip(x, thw)[0][:,0]
         x = x_skip + self.stochastic_depth(x_attn)
         x_norm2 = self.norm2(x.transpose(1, 2)).transpose(1, 2) if self.needs_transposal else self.norm2(x)
         x_proj = x 

@@ -152,7 +152,6 @@ class SimpleDataSet(Dataset):
         return outs
 
     def __len__(self):
-        return 3
         return len(self.data_idx_order_list)
 
 

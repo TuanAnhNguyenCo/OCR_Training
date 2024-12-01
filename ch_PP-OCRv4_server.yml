@@ -1,4 +1,5 @@
 Global:
+  torch_compile: true
   distributed: false
   debug: false
   use_gpu: false

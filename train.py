@@ -71,7 +71,9 @@ def main(config,logger, device, seed):
     model = load_model(
         config, model
     )
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    if global_config['torch_compile']:
+        model = torch.compile(model)
+    device = torch.device("cpu")
     model.to(device)
 
 

@@ -133,6 +133,8 @@ class MViT(nn.Module):
                     nn.init.trunc_normal_(weights, std=0.02)
 
     def forward(self, clip: torch.Tensor) -> torch.Tensor:
+        if len(clip.shape) == 3:
+            clip = clip.unsqueeze(0)
         x = clip    
         # patchify and reshape: (B, C, T, H, W) -> (B, embed_channels[0], T', H', W') -> (B, THW', embed_channels[0])
         x = self.conv_proj(x)

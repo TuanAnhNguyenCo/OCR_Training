@@ -111,7 +111,7 @@ class Trainer:
 
         return {key:value/len(self.val_loader) for key, value in metric.items()}
 
-    def save_checkpoint(self, epoch):
+    def save_checkpoint(self, epoch, name='checkpoint.pth'):
         if self.distributed and dist.get_rank() != 0:
             return
 
@@ -122,7 +122,7 @@ class Trainer:
             'lr_scheduler_state_dict': self.lr_scheduler.state_dict(),
             'best_h_mean': self.best_hmean,
         }
-        torch.save(checkpoint, os.path.join(self.checkpoint_dir, 'checkpoint.pth'))
+        torch.save(checkpoint, os.path.join(self.checkpoint_dir, name))
 
     def load_checkpoint(self, checkpoint_path):
         checkpoint = torch.load(checkpoint_path)
@@ -145,6 +145,7 @@ class Trainer:
             if self.distributed:
                 self.train_sampler.set_epoch(epoch)
             train_loss = self.train_epoch(epoch)
+            self.save_checkpoint(epoch, name='current_checkpoint.pth')
             metric = self.validate()
 
             if self.distributed:
@@ -154,7 +155,7 @@ class Trainer:
 
             if metric['hmean'] > self.best_hmean:
                 self.best_hmean = metric['hmean']
-                self.save_checkpoint(epoch)
+                self.save_checkpoint(epoch, name = 'best_checkpoint.pth')
 
             if self.distributed and dist.get_rank() == 0:
                 self.logger.info(f"Epoch {epoch+1}/{self.epochs}, Train Loss: {train_loss:.4f}, Val Metric: {metric}")

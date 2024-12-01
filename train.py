@@ -73,7 +73,7 @@ def main(config,logger, device, seed):
     )
     if global_config['torch_compile']:
         model = torch.compile(model, dynamic=True, mode="reduce-overhead")
-    device = torch.device("cpu")
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
 
 

@@ -96,3 +96,153 @@
 2024-11-30 17:09:38,032 - train - INFO - Train Epoch: 1 [0/24000 (0%)]	Loss: {'loss': tensor(9.2387, device='mps:0', grad_fn=<AddBackward0>), 'loss_shrink_maps': tensor(4.7274, device='mps:0', grad_fn=<MulBackward0>), 'loss_threshold_maps': tensor(2.6253, device='mps:0', grad_fn=<MulBackward0>), 'loss_binary_maps': tensor(0.9430, device='mps:0', grad_fn=<RsubBackward1>), 'loss_cbn': tensor(0.9430, device='mps:0', grad_fn=<DivBackward0>)}
 2024-11-30 17:10:15,637 - train - INFO - Train Epoch: 1 [20/24000 (0%)]	Loss: {'loss': tensor(7.7145, device='mps:0', grad_fn=<AddBackward0>), 'loss_shrink_maps': tensor(4.6076, device='mps:0', grad_fn=<MulBackward0>), 'loss_threshold_maps': tensor(1.2635, device='mps:0', grad_fn=<MulBackward0>), 'loss_binary_maps': tensor(0.9218, device='mps:0', grad_fn=<RsubBackward1>), 'loss_cbn': tensor(0.9218, device='mps:0', grad_fn=<DivBackward0>)}
 2024-11-30 17:10:51,933 - train - INFO - Train Epoch: 1 [40/24000 (0%)]	Loss: {'loss': tensor(7.5200, device='mps:0', grad_fn=<AddBackward0>), 'loss_shrink_maps': tensor(4.5741, device='mps:0', grad_fn=<MulBackward0>), 'loss_threshold_maps': tensor(1.2218, device='mps:0', grad_fn=<MulBackward0>), 'loss_binary_maps': tensor(0.8620, device='mps:0', grad_fn=<RsubBackward1>), 'loss_cbn': tensor(0.8620, device='mps:0', grad_fn=<DivBackward0>)}
+2024-11-30 17:27:11,167 - train - INFO - Initialize indexs of datasets:['dataset/train.txt']
+2024-11-30 17:28:09,420 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-11-30 17:28:09,485 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-11-30 17:28:09,498 - train - INFO - train dataloader has 12000 iters
+2024-11-30 17:28:09,498 - train - INFO - valid dataloader has 6000 iters
+2024-11-30 17:28:41,669 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-11-30 17:28:41,720 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-11-30 17:28:41,729 - train - INFO - train dataloader has 12000 iters
+2024-11-30 17:28:41,729 - train - INFO - valid dataloader has 6000 iters
+2024-11-30 17:31:08,125 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-11-30 17:31:08,175 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-11-30 17:31:08,184 - train - INFO - train dataloader has 12000 iters
+2024-11-30 17:31:08,184 - train - INFO - valid dataloader has 6000 iters
+2024-11-30 17:33:40,966 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-11-30 17:33:41,015 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-11-30 17:33:41,024 - train - INFO - train dataloader has 12000 iters
+2024-11-30 17:33:41,024 - train - INFO - valid dataloader has 6000 iters
+2024-11-30 17:40:50,533 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-11-30 17:40:50,584 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-11-30 17:40:50,593 - train - INFO - train dataloader has 12000 iters
+2024-11-30 17:40:50,593 - train - INFO - valid dataloader has 6000 iters
+2024-11-30 17:41:52,060 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-11-30 17:41:52,109 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-11-30 17:41:52,118 - train - INFO - train dataloader has 12000 iters
+2024-11-30 17:41:52,118 - train - INFO - valid dataloader has 6000 iters
+2024-11-30 17:42:59,423 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-11-30 17:42:59,471 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-11-30 17:42:59,480 - train - INFO - train dataloader has 12000 iters
+2024-11-30 17:42:59,480 - train - INFO - valid dataloader has 6000 iters
+2024-11-30 17:44:26,185 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-11-30 17:44:26,234 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-11-30 17:44:26,243 - train - INFO - train dataloader has 12000 iters
+2024-11-30 17:44:26,243 - train - INFO - valid dataloader has 6000 iters
+2024-11-30 17:45:28,979 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-11-30 17:45:29,027 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-11-30 17:45:29,036 - train - INFO - train dataloader has 12000 iters
+2024-11-30 17:45:29,036 - train - INFO - valid dataloader has 6000 iters
+2024-11-30 17:48:53,145 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-11-30 17:48:53,193 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-11-30 17:48:53,202 - train - INFO - train dataloader has 12000 iters
+2024-11-30 17:48:53,202 - train - INFO - valid dataloader has 6000 iters
+2024-11-30 17:49:38,291 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-11-30 17:49:38,338 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-11-30 17:49:38,347 - train - INFO - train dataloader has 12000 iters
+2024-11-30 17:49:38,347 - train - INFO - valid dataloader has 6000 iters
+2024-11-30 17:50:22,379 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-11-30 17:50:22,427 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-11-30 17:50:22,436 - train - INFO - train dataloader has 12000 iters
+2024-11-30 17:50:22,436 - train - INFO - valid dataloader has 6000 iters
+2024-11-30 17:50:52,200 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-11-30 17:50:52,252 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-11-30 17:50:52,263 - train - INFO - train dataloader has 12000 iters
+2024-11-30 17:50:52,263 - train - INFO - valid dataloader has 6000 iters
+2024-11-30 17:52:39,492 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-11-30 17:52:39,540 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-11-30 17:52:39,549 - train - INFO - train dataloader has 12000 iters
+2024-11-30 17:52:39,549 - train - INFO - valid dataloader has 6000 iters
+2024-11-30 17:54:15,257 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-11-30 17:54:15,307 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-11-30 17:54:15,316 - train - INFO - train dataloader has 12000 iters
+2024-11-30 17:54:15,316 - train - INFO - valid dataloader has 6000 iters
+2024-11-30 18:36:26,165 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-11-30 18:36:26,222 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-11-30 18:36:26,233 - train - INFO - train dataloader has 12000 iters
+2024-11-30 18:36:26,233 - train - INFO - valid dataloader has 6000 iters
+2024-11-30 18:36:51,173 - train - INFO - Train Epoch: 1 [0/24000 (0%)]	Loss: {'loss': tensor(9.1766, grad_fn=<AddBackward0>), 'loss_shrink_maps': tensor(4.8011, grad_fn=<MulBackward0>), 'loss_threshold_maps': tensor(2.4531, grad_fn=<MulBackward0>), 'loss_binary_maps': tensor(0.9612, grad_fn=<RsubBackward1>), 'loss_cbn': tensor(0.9612, grad_fn=<DivBackward0>)}
+2024-11-30 20:45:04,852 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-11-30 20:45:04,888 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-11-30 20:45:04,896 - train - INFO - train dataloader has 12000 iters
+2024-11-30 20:45:04,896 - train - INFO - valid dataloader has 6000 iters
+2024-11-30 20:45:15,477 - train - INFO - Train Epoch: 1 [0/24000 (0%)]	Loss: {'loss': tensor(8.6090, device='mps:0', grad_fn=<AddBackward0>), 'loss_shrink_maps': tensor(4.6320, device='mps:0', grad_fn=<MulBackward0>), 'loss_threshold_maps': tensor(2.1389, device='mps:0', grad_fn=<MulBackward0>), 'loss_binary_maps': tensor(0.9191, device='mps:0', grad_fn=<RsubBackward1>), 'loss_cbn': tensor(0.9191, device='mps:0', grad_fn=<DivBackward0>)}
+2024-11-30 20:45:21,807 - train - INFO - Train Epoch: 1 [20/24000 (0%)]	Loss: {'loss': tensor(8.6837, device='mps:0', grad_fn=<AddBackward0>), 'loss_shrink_maps': tensor(4.9228, device='mps:0', grad_fn=<MulBackward0>), 'loss_threshold_maps': tensor(1.7933, device='mps:0', grad_fn=<MulBackward0>), 'loss_binary_maps': tensor(0.9838, device='mps:0', grad_fn=<RsubBackward1>), 'loss_cbn': tensor(0.9838, device='mps:0', grad_fn=<DivBackward0>)}
+2024-11-30 20:45:28,411 - train - INFO - Train Epoch: 1 [40/24000 (0%)]	Loss: {'loss': tensor(7.6269, device='mps:0', grad_fn=<AddBackward0>), 'loss_shrink_maps': tensor(4.6124, device='mps:0', grad_fn=<MulBackward0>), 'loss_threshold_maps': tensor(1.1957, device='mps:0', grad_fn=<MulBackward0>), 'loss_binary_maps': tensor(0.9094, device='mps:0', grad_fn=<RsubBackward1>), 'loss_cbn': tensor(0.9094, device='mps:0', grad_fn=<DivBackward0>)}
+2024-11-30 20:45:34,792 - train - INFO - Train Epoch: 1 [60/24000 (0%)]	Loss: {'loss': tensor(7.9272, device='mps:0', grad_fn=<AddBackward0>), 'loss_shrink_maps': tensor(4.8362, device='mps:0', grad_fn=<MulBackward0>), 'loss_threshold_maps': tensor(1.1728, device='mps:0', grad_fn=<MulBackward0>), 'loss_binary_maps': tensor(0.9591, device='mps:0', grad_fn=<RsubBackward1>), 'loss_cbn': tensor(0.9591, device='mps:0', grad_fn=<DivBackward0>)}
+2024-11-30 20:45:41,057 - train - INFO - Train Epoch: 1 [80/24000 (0%)]	Loss: {'loss': tensor(7.7828, device='mps:0', grad_fn=<AddBackward0>), 'loss_shrink_maps': tensor(4.7787, device='mps:0', grad_fn=<MulBackward0>), 'loss_threshold_maps': tensor(1.1624, device='mps:0', grad_fn=<MulBackward0>), 'loss_binary_maps': tensor(0.9209, device='mps:0', grad_fn=<RsubBackward1>), 'loss_cbn': tensor(0.9209, device='mps:0', grad_fn=<DivBackward0>)}
+2024-11-30 20:47:45,197 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-11-30 20:47:45,235 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-11-30 20:47:45,243 - train - INFO - train dataloader has 3000 iters
+2024-11-30 20:47:45,243 - train - INFO - valid dataloader has 750 iters
+2024-11-30 20:47:54,717 - train - INFO - Train Epoch: 1 [0/24000 (0%)]	Loss: {'loss': tensor(8.9691, device='mps:0', grad_fn=<AddBackward0>), 'loss_shrink_maps': tensor(4.7377, device='mps:0', grad_fn=<MulBackward0>), 'loss_threshold_maps': tensor(2.3410, device='mps:0', grad_fn=<MulBackward0>), 'loss_binary_maps': tensor(0.9452, device='mps:0', grad_fn=<RsubBackward1>), 'loss_cbn': tensor(0.9452, device='mps:0', grad_fn=<DivBackward0>)}
+2024-11-30 20:48:17,795 - train - INFO - Train Epoch: 1 [80/24000 (0%)]	Loss: {'loss': tensor(7.8047, device='mps:0', grad_fn=<AddBackward0>), 'loss_shrink_maps': tensor(4.5765, device='mps:0', grad_fn=<MulBackward0>), 'loss_threshold_maps': tensor(1.3483, device='mps:0', grad_fn=<MulBackward0>), 'loss_binary_maps': tensor(0.9400, device='mps:0', grad_fn=<RsubBackward1>), 'loss_cbn': tensor(0.9400, device='mps:0', grad_fn=<DivBackward0>)}
+2024-11-30 20:54:41,383 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-11-30 20:54:41,420 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-11-30 20:54:41,428 - train - INFO - train dataloader has 3000 iters
+2024-11-30 20:54:41,428 - train - INFO - valid dataloader has 750 iters
+2024-11-30 20:54:49,437 - train - INFO - Train Epoch: 1 [0/24000 (0%)]	Loss: {'loss': 9.188919067382812, 'loss_shrink_maps': 4.8160786628723145, 'loss_threshold_maps': 2.4507575035095215, 'loss_binary_maps': 0.9610418081283569, 'loss_cbn': 0.9610418677330017}
+2024-11-30 20:55:30,284 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-11-30 20:55:30,319 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-11-30 20:55:30,327 - train - INFO - train dataloader has 3000 iters
+2024-11-30 20:55:30,328 - train - INFO - valid dataloader has 750 iters
+2024-11-30 20:55:48,461 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-11-30 20:55:48,497 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-11-30 20:55:48,502 - train - INFO - train dataloader has 3000 iters
+2024-11-30 20:55:48,503 - train - INFO - valid dataloader has 750 iters
+2024-11-30 20:56:00,287 - train - INFO - Train Epoch: 1 [0/24000 (0%)]	Loss: {'loss': 9.075963973999023, 'loss_shrink_maps': 4.834834098815918, 'loss_threshold_maps': 2.30629301071167, 'loss_binary_maps': 0.9674185514450073, 'loss_cbn': 0.9674186110496521}
+2024-11-30 21:00:42,961 - train - INFO - Train Epoch: 1 [800/24000 (3%)]	Loss: {'loss': 6.106889724731445, 'loss_shrink_maps': 4.176137924194336, 'loss_threshold_maps': 1.007979154586792, 'loss_binary_maps': 0.4613860845565796, 'loss_cbn': 0.4613860845565796}
+2024-12-01 07:08:34,151 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-12-01 07:08:34,205 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-12-01 07:08:34,216 - train - INFO - train dataloader has 3000 iters
+2024-12-01 07:08:34,216 - train - INFO - valid dataloader has 6000 iters
+2024-12-01 07:10:12,017 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-12-01 07:10:12,066 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-12-01 07:10:12,075 - train - INFO - train dataloader has 3000 iters
+2024-12-01 07:10:12,075 - train - INFO - valid dataloader has 6000 iters
+2024-12-01 07:12:21,407 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-12-01 07:12:21,462 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-12-01 07:12:21,473 - train - INFO - train dataloader has 3000 iters
+2024-12-01 07:12:21,473 - train - INFO - valid dataloader has 6000 iters
+2024-12-01 07:12:44,570 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-12-01 07:12:44,619 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-12-01 07:12:44,628 - train - INFO - train dataloader has 12000 iters
+2024-12-01 07:12:44,628 - train - INFO - valid dataloader has 6000 iters
+2024-12-01 07:42:33,657 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-12-01 07:42:33,712 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-12-01 07:42:33,724 - train - INFO - train dataloader has 12000 iters
+2024-12-01 07:42:33,724 - train - INFO - valid dataloader has 6000 iters
+2024-12-01 07:43:28,951 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-12-01 07:43:29,004 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-12-01 07:43:29,017 - train - INFO - train dataloader has 12000 iters
+2024-12-01 07:43:29,017 - train - INFO - valid dataloader has 6000 iters
+2024-12-01 07:45:48,870 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-12-01 07:45:48,928 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-12-01 07:45:48,940 - train - INFO - train dataloader has 12000 iters
+2024-12-01 07:45:48,940 - train - INFO - valid dataloader has 6000 iters
+2024-12-01 07:47:09,480 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-12-01 07:47:09,533 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-12-01 07:47:09,544 - train - INFO - train dataloader has 12000 iters
+2024-12-01 07:47:09,544 - train - INFO - valid dataloader has 6000 iters
+2024-12-01 07:50:42,047 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-12-01 07:50:42,102 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-12-01 07:50:42,127 - train - INFO - train dataloader has 12000 iters
+2024-12-01 07:50:42,129 - train - INFO - valid dataloader has 6000 iters
+2024-12-01 07:57:19,494 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-12-01 07:57:19,548 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-12-01 07:57:19,560 - train - INFO - train dataloader has 12000 iters
+2024-12-01 07:57:19,560 - train - INFO - valid dataloader has 6000 iters
+2024-12-01 07:58:37,257 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-12-01 07:58:37,311 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-12-01 07:58:37,319 - train - INFO - train dataloader has 12000 iters
+2024-12-01 07:58:37,320 - train - INFO - valid dataloader has 6000 iters
+2024-12-01 08:01:32,300 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-12-01 08:01:32,351 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-12-01 08:01:32,362 - train - INFO - train dataloader has 12000 iters
+2024-12-01 08:01:32,362 - train - INFO - valid dataloader has 6000 iters
+2024-12-01 08:01:57,510 - train - INFO - Train Epoch: 1 [0/24000 (0%)]	Loss: {'loss': 8.957489013671875, 'loss_shrink_maps': 4.602175235748291, 'loss_threshold_maps': 2.526811122894287, 'loss_binary_maps': 0.9142512083053589, 'loss_cbn': 0.9142511487007141}
+2024-12-01 10:05:39,804 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-12-01 10:05:39,838 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-12-01 10:05:39,847 - train - INFO - train dataloader has 2 iters
+2024-12-01 10:05:39,847 - train - INFO - valid dataloader has 3 iters
+2024-12-01 10:05:56,900 - train - INFO - Train Epoch: 1 [0/3 (0%)]	Loss: {'loss': 9.618558883666992, 'loss_shrink_maps': 4.992919445037842, 'loss_threshold_maps': 2.628796339035034, 'loss_binary_maps': 0.9984214305877686, 'loss_cbn': 0.9984215497970581}

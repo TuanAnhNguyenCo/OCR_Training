@@ -1,5 +1,6 @@
 Global:
-  torch_compile: true
+  torch_compile: false
+  grad_accum_steps: false
   distributed: false
   debug: false
   use_gpu: false
@@ -23,7 +24,7 @@ Architecture:
   Transform: null
   Backbone:
     name: Resnet
-    layers: 18
+    layers: 50
   Neck:
     name: LKPAN
     out_channels: 128
@@ -49,7 +50,7 @@ Optimizer:
   beta2: 0.999
   lr:
     name: Cosine
-    learning_rate: 0.007 #(8*8c)
+    learning_rate: 0.001 #(8*8c)
     warmup_epoch: 2
   regularizer:
     name: L2

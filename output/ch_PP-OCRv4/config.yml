@@ -4,12 +4,10 @@ Global:
   use_gpu: false
   epoch_num: 500
   log_smooth_window: 20
-  print_batch_step: 10
+  print_batch_step: 100
   save_model_dir: ./output/ch_PP-OCRv4
   save_epoch_step: 10
-  eval_batch_step:
-  - 0
-  - 1500
+  eval_batch_step: 2000
   cal_metric_during_train: false
   checkpoints: null
   save_inference_dir: null
@@ -21,11 +19,10 @@ Architecture:
   algorithm: DB
   Transform: null
   Backbone:
-    name: Resnet
-    layers: 101
+    name: MViTv2_S
   Neck:
     name: LKPAN
-    out_channels: 256
+    out_channels: 128
     intracl: true
   Head:
     name: PFHeadLocal
@@ -49,7 +46,7 @@ Optimizer:
     warmup_epoch: 2
   regularizer:
     name: L2
-    factor: 1e-6
+    factor: 1e-4
 PostProcess:
   name: DBPostProcess
   thresh: 0.3
@@ -138,7 +135,10 @@ Eval:
         img_mode: BGR
         channel_first: false
     - DetLabelEncode: null
-    - DetResizeForTest: null
+    - DetResizeForTest:
+        image_shape:
+        - 640
+        - 640
     - NormalizeImage:
         scale: 1./255.
         mean:
@@ -161,5 +161,5 @@ Eval:
     shuffle: false
     drop_last: false
     batch_size_per_card: 1
-    num_workers: 1
+    num_workers: 2
 profiler_options: null

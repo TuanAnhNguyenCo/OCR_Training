@@ -31,6 +31,7 @@ from losses import build_loss
 from postprocess import build_post_process
 from metrics import build_metric
 from utils.save_load import load_model
+from optimizer import build_optimizer
 from utils.utility import set_seed
 from program import preprocess
 import logging
@@ -103,6 +104,14 @@ def main(config,logger, device, seed):
     # build loss
     loss_class = build_loss(config["Loss"])
 
+    # build optim
+    optimizer, lr_scheduler = build_optimizer(
+        config["Optimizer"],
+        epochs=config["Global"]["epoch_num"],
+        step_each_epoch=len(train_dataloader),
+        model=model,
+    )
+
     logger.info("train dataloader has {} iters".format(len(train_dataloader)))
     if valid_dataloader is not None:
         logger.info("valid dataloader has {} iters".format(len(valid_dataloader)))
@@ -113,10 +122,9 @@ def main(config,logger, device, seed):
         model=model,
         train_loader=train_dataloader,
         val_loader=valid_dataloader,
-        optimizer_config=config["Optimizer"],
         loss_fn=loss_class,
         epochs=global_config["epoch_num"],
-        grad_accum_steps=min(1, 64//config['Train']['loader']['batch_size_per_card']),
+        grad_accum_steps=min(1, 64//config['Train']['loader']['batch_size_per_card']) if global_config["grad_accum_steps"] == True else 1,
         distributed=global_config["distributed"],
         log_interval=global_config["print_batch_step"],
         logger=logger,
@@ -125,6 +133,8 @@ def main(config,logger, device, seed):
         post_process_func=post_process_func,
         metric_class = metric_class,
         eval_batch_step = global_config["eval_batch_step"],
+        optimizer=optimizer,
+        lr_scheduler=lr_scheduler,
     )
     trainer.train()
 

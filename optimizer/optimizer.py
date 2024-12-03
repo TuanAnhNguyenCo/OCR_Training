@@ -123,11 +123,11 @@ class Adam(object):
             else:
                 print("group lr currently only support VisionLAN in LF_2 training step")
                 train_params = [
-                    param for param in model.parameters() if param.trainable is True
+                    param for param in model.parameters() if param.requires_grad is True
                 ]
         else:
             train_params = [
-                param for param in model.parameters() if param.trainable is True
+                param for param in model.parameters() if param.requires_grad is True
             ]
 
         opt = optim.Adam(

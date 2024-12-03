@@ -1,7 +1,7 @@
 from torch import nn
 import timm
 import torch
-from .bottleneck import Bottleneck
+from .utils.bottleneck import Bottleneck
 
 class Resnet(nn.Module):
     def __init__(self, in_channels=3, layers=50, out_indices = None):

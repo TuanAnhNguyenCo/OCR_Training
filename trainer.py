@@ -43,7 +43,7 @@ class Trainer:
             output = self.model(batch[0])
             loss = self.loss_fn(output, batch)
             optimized_loss = loss["loss"]
-
+            print(optimized_loss)
             optimized_loss = optimized_loss / self.grad_accum_steps
             optimized_loss.backward()
             if (batch_idx + 1) % self.grad_accum_steps == 0:
@@ -127,7 +127,7 @@ class Trainer:
             start_epoch = self.load_checkpoint(os.path.join(self.checkpoint_dir, 'current_checkpoint.pth'))
 
         # Warmup
-        for epoch in range(start_epoch, self.optimizer_config['lr']['warmup_epoch']):
+        for epoch in range(start_epoch, self.epochs):
             if self.distributed:
                 self.train_sampler.set_epoch(epoch)
             train_loss = self.train_epoch(epoch)

@@ -18,10 +18,12 @@ __all__ = ["build_backbone"]
 def build_backbone(config, model_type):
     if model_type == "det":
         from .det_resnet import Resnet
+        from .det_resnet_vd import ResNet_vd
         from .mvitv2 import mvit_v2_s
         support_dict = [
             "Resnet",
-            "MViTv2_S"
+            "MViTv2_S",
+            "ResNet_vd"
         ]
     module_name = config.pop("name")
     

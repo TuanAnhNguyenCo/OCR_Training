@@ -246,3 +246,23 @@
 2024-12-01 10:05:39,847 - train - INFO - train dataloader has 2 iters
 2024-12-01 10:05:39,847 - train - INFO - valid dataloader has 3 iters
 2024-12-01 10:05:56,900 - train - INFO - Train Epoch: 1 [0/3 (0%)]	Loss: {'loss': 9.618558883666992, 'loss_shrink_maps': 4.992919445037842, 'loss_threshold_maps': 2.628796339035034, 'loss_binary_maps': 0.9984214305877686, 'loss_cbn': 0.9984215497970581}
+2024-12-02 22:10:02,531 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-12-02 22:10:02,583 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-12-02 22:10:02,596 - train - INFO - train dataloader has 24000 iters
+2024-12-02 22:10:02,596 - train - INFO - valid dataloader has 6000 iters
+2024-12-02 22:12:00,802 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-12-02 22:12:00,839 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-12-02 22:12:00,849 - train - INFO - train dataloader has 24000 iters
+2024-12-02 22:12:00,849 - train - INFO - valid dataloader has 6000 iters
+2024-12-03 22:24:53,436 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-12-03 22:24:53,449 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-12-03 22:24:53,457 - train - INFO - train dataloader has 750 iters
+2024-12-03 22:24:53,457 - train - INFO - valid dataloader has 6000 iters
+2024-12-03 22:25:05,686 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-12-03 22:25:05,698 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-12-03 22:25:05,706 - train - INFO - train dataloader has 750 iters
+2024-12-03 22:25:05,706 - train - INFO - valid dataloader has 6000 iters
+2024-12-03 22:25:24,188 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt']
+2024-12-03 22:25:24,248 - train - INFO - Initialize indexs of datasets:['/Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt']
+2024-12-03 22:25:24,269 - train - INFO - train dataloader has 24000 iters
+2024-12-03 22:25:24,270 - train - INFO - valid dataloader has 6000 iters

@@ -56,10 +56,10 @@ class Trainer:
                 loss_ = {key: value.item() for key, value in loss.items()}
                 if self.distributed and dist.get_rank() == 0:
                     self.logger.info(f"Train Epoch: {epoch+1} [{batch_idx * batch[0].shape[0]}/{len(self.train_loader.dataset)} "
-                          f"({100. * batch_idx / len(self.train_loader):.0f}%)]\tLoss: {loss_} -- LR: {self.optimizer.get_lr()}")
+                          f"({100. * batch_idx / len(self.train_loader):.0f}%)]\tLoss: {loss_} -- LR: {self.optimizer.param_groups[0]['lr']}")
                 elif not self.distributed:
                     self.logger.info(f"Train Epoch: {epoch+1} [{batch_idx * batch[0].shape[0]}/{len(self.train_loader.dataset)} "
-                          f"({100. * batch_idx / len(self.train_loader):.0f}%)]\tLoss: {loss_} -- LR: {self.optimizer.get_lr()}")
+                          f"({100. * batch_idx / len(self.train_loader):.0f}%)]\tLoss: {loss_} -- LR: {self.optimizer.param_groups[0]['lr']}")
             if batch_idx % self.eval_batch_step == 0 and batch_idx > 0:
                 metric = self.validate()
                 if metric['hmean'] > self.best_hmean:

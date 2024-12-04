@@ -43,7 +43,6 @@ class Trainer:
             output = self.model(batch[0])
             loss = self.loss_fn(output, batch)
             optimized_loss = loss["loss"]
-            print(optimized_loss)
             optimized_loss = optimized_loss / self.grad_accum_steps
             optimized_loss.backward()
             if (batch_idx + 1) % self.grad_accum_steps == 0:

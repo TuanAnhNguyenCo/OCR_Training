@@ -85,8 +85,8 @@ class DBLoss(nn.Module):
                 cbn_maps[:, 0, :, :], label_shrink_map, label_shrink_mask
             )
         else:
-            dis_loss = torch.tensor([0.0])
-            cbn_loss = torch.tensor([0.0])
+            dis_loss = torch.tensor([0.0]).to(predicts)
+            cbn_loss = torch.tensor([0.0]).to(predicts)
 
         loss_all = loss_shrink_maps + loss_threshold_maps + loss_binary_maps
         losses = {

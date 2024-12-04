@@ -3,42 +3,49 @@ from torch import nn
 from torch.nn import functional as F
 
 class BottleneckBlock(nn.Module):
-    def __init__(self, num_channels, num_filters, stride, shortcut=True, is_dcn=False):
-        super(BottleneckBlock, self).__init__()
+    def __init__(
+        self,
+        in_channels,
+        out_channels,
+        stride,
+        shortcut=True,
+        if_first=False,
+        is_dcn=False,
+    ):
+        super().__init__()
 
         self.conv0 = ConvBNLayer(
-            in_channels=num_channels,
-            out_channels=num_filters,
+            in_channels=in_channels,
+            out_channels=out_channels,
             kernel_size=1,
             act="relu",
         )
         self.conv1 = ConvBNLayer(
-            in_channels=num_filters,
-            out_channels=num_filters,
+            in_channels=out_channels,
+            out_channels=out_channels,
             kernel_size=3,
             stride=stride,
             act="relu",
             is_dcn=is_dcn,
-            dcn_groups=1,
+            dcn_groups=2,
         )
         self.conv2 = ConvBNLayer(
-            in_channels=num_filters,
-            out_channels=num_filters * 4,
+            in_channels=out_channels,
+            out_channels=out_channels * 4,
             kernel_size=1,
             act=None,
         )
 
         if not shortcut:
             self.short = ConvBNLayer(
-                in_channels=num_channels,
-                out_channels=num_filters * 4,
+                in_channels=in_channels,
+                out_channels=out_channels * 4,
                 kernel_size=1,
-                stride=stride,
+                stride=1,
+                is_vd_mode=False if if_first else True,
             )
 
         self.shortcut = shortcut
-
-        self._num_channels_out = num_filters * 4
 
     def forward(self, inputs):
         y = self.conv0(inputs)
@@ -49,7 +56,6 @@ class BottleneckBlock(nn.Module):
             short = inputs
         else:
             short = self.short(inputs)
-
         y = short + conv2
         y = F.relu(y)
         return y

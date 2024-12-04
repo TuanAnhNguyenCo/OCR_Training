@@ -71,7 +71,7 @@ class Trainer:
                     self.logger.info(f"Epoch {epoch+1}/{self.epochs}, Val Metric: {metric}")
                 self.model.train()
             if self.lr_scheduler:
-                self.lr_scheduler.step()
+                self.lr_scheduler.step(epoch, batch_idx)
 
         return train_loss / len(self.train_loader.dataset)
 

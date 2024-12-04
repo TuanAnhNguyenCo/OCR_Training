@@ -2,14 +2,14 @@ Global:
   torch_compile: False
   distributed: False
   grad_accum_steps: False
-  use_gpu: False
+  use_gpu: True
   epoch_num: 1200
   log_smooth_window: 20
-  print_batch_step: 2
+  print_batch_step: 100
   save_model_dir: ./output/ch_db_res18/
   save_epoch_step: 1200
   # evaluation is run every 5000 iterations after the 4000th iteration
-  eval_batch_step: [3000, 2000]
+  eval_batch_step: [0, 2000]
   cal_metric_during_train: False
   pretrained_model: ./pretrain_models/ResNet18_vd_pretrained
   checkpoints:
@@ -24,7 +24,7 @@ Architecture:
   Transform:
   Backbone:
     name: ResNet_vd
-    layers: 18
+    layers: 50
     disable_se: True
   Neck:
     name: DBFPN
@@ -41,17 +41,13 @@ Loss:
   beta: 10
   ohem_ratio: 3
 
-Optimizer:
+optimizer:
   name: Adam
-  beta1: 0.9
-  beta2: 0.999
-  lr:
-    name: Cosine
-    learning_rate: 0.001
-    warmup_epoch: 2
-  regularizer:
-    name: 'L2'
-    factor: 0
+  lr: 0.001
+lr_scheduler:
+  name: CosineDecayLR
+  warmup_epoch: 2
+ 
 
 PostProcess:
   name: DBPostProcess

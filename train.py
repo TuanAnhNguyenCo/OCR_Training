@@ -106,7 +106,7 @@ def main(config,logger, device, seed):
 
     # build optim
     optimizer, lr_scheduler = build_optimizer(
-        config["Optimizer"],
+        config=config,
         epochs=config["Global"]["epoch_num"],
         step_each_epoch=len(train_dataloader),
         model=model,

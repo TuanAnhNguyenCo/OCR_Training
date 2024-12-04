@@ -48,7 +48,7 @@ class Trainer:
             optimized_loss.backward()
             if (batch_idx + 1) % self.grad_accum_steps == 0:
                 self.optimizer.step()
-                self.optimizer.clear_grad()
+                self.optimizer.zero_grad()
 
             train_loss += optimized_loss.item() * batch[0].shape[0]
 

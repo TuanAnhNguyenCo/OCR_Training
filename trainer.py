@@ -104,7 +104,6 @@ class Trainer:
             'epoch': epoch + 1,
             'model_state_dict': self.model.module.state_dict() if self.distributed else self.model.state_dict(),
             'optimizer_state_dict': self.optimizer.state_dict(),
-            'lr_scheduler_state_dict': self.lr_scheduler.state_dict(),
             'best_h_mean': self.best_hmean,
         }
         torch.save(checkpoint, os.path.join(self.checkpoint_dir, name))
@@ -116,7 +115,6 @@ class Trainer:
         else:
             self.model.load_state_dict(checkpoint['model_state_dict'])
         self.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-        self.lr_scheduler.load_state_dict(checkpoint['lr_scheduler_state_dict'])
         self.best_val_loss = checkpoint['best_val_loss']
         return checkpoint['epoch']
 

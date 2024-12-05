@@ -115,7 +115,7 @@ class Trainer:
         else:
             self.model.load_state_dict(checkpoint['model_state_dict'])
         self.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-        self.best_val_loss = checkpoint['best_val_loss']
+        self.best_h_mean = checkpoint['best_h_mean']
         return checkpoint['epoch']
 
     def train(self):

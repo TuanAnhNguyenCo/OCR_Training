@@ -33,6 +33,7 @@ class DetectionModule(L.LightningModule):
     
     def validation_step(self, batch, batch_idx):
         output = self.model(batch[0])
+        print("OUTPUT", output.shape)
         output = {key:value.cpu().numpy() for key, value in output.items()}
         batch_numpy = []
         batch = [b.cpu() for b in batch]

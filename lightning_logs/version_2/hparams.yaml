@@ -1,0 +1,159 @@
+config:
+  Architecture:
+    Backbone:
+      disable_se: true
+      layers: 18
+      name: ResNet_vd
+    Head:
+      k: 50
+      name: DBHead
+    Neck:
+      name: DBFPN
+      out_channels: 256
+    Transform: null
+    algorithm: DB
+    model_type: det
+  Eval:
+    dataset:
+      data_dir: /Users/tuananh/Desktop/AI/PaddleOCR/
+      label_file_list:
+      - /Users/tuananh/Desktop/AI/PaddleOCR/dataset/val.txt
+      name: SimpleDataSet
+      transforms:
+      - DecodeImage:
+          channel_first: false
+          img_mode: BGR
+      - DetLabelEncode: null
+      - DetResizeForTest: null
+      - NormalizeImage:
+          mean:
+          - 0.485
+          - 0.456
+          - 0.406
+          order: hwc
+          scale: 1./255.
+          std:
+          - 0.229
+          - 0.224
+          - 0.225
+      - ToCHWImage: null
+      - KeepKeys:
+          keep_keys:
+          - image
+          - shape
+          - polys
+          - ignore_tags
+    loader:
+      batch_size_per_card: 1
+      drop_last: false
+      num_workers: 2
+      shuffle: false
+  Global:
+    cal_metric_during_train: false
+    checkpoints: null
+    distributed: false
+    epoch_num: 1200
+    eval_batch_step:
+    - 0
+    - 2000
+    grad_accum_steps: false
+    infer_img: doc/imgs_en/img_10.jpg
+    log_smooth_window: 20
+    pretrained_model: ./pretrain_models/ResNet18_vd_pretrained
+    print_batch_step: 100
+    save_epoch_step: 1200
+    save_inference_dir: null
+    save_model_dir: ./output/ch_db_res18/
+    save_res_path: ./output/det_db/predicts_db.txt
+    torch_compile: false
+    use_gpu: true
+    use_visualdl: false
+  Loss:
+    alpha: 5
+    balance_loss: true
+    beta: 10
+    main_loss_type: DiceLoss
+    name: DBLoss
+    ohem_ratio: 3
+  Metric:
+    main_indicator: hmean
+    name: DetMetric
+  PostProcess:
+    box_thresh: 0.6
+    max_candidates: 1000
+    name: DBPostProcess
+    thresh: 0.3
+    unclip_ratio: 1.5
+  Train:
+    dataset:
+      data_dir: /Users/tuananh/Desktop/AI/PaddleOCR/
+      label_file_list:
+      - /Users/tuananh/Desktop/AI/PaddleOCR/dataset/train.txt
+      name: SimpleDataSet
+      ratio_list:
+      - 1.0
+      transforms:
+      - DecodeImage:
+          channel_first: false
+          img_mode: BGR
+      - DetLabelEncode: null
+      - IaaAugment:
+          augmenter_args:
+          - args:
+              p: 0.5
+            type: Fliplr
+          - args:
+              rotate:
+              - -10
+              - 10
+            type: Affine
+          - args:
+              size:
+              - 0.5
+              - 3
+            type: Resize
+      - EastRandomCropData:
+          keep_ratio: true
+          max_tries: 50
+          size:
+          - 960
+          - 960
+      - MakeBorderMap:
+          shrink_ratio: 0.4
+          thresh_max: 0.7
+          thresh_min: 0.3
+      - MakeShrinkMap:
+          min_text_size: 8
+          shrink_ratio: 0.4
+      - NormalizeImage:
+          mean:
+          - 0.485
+          - 0.456
+          - 0.406
+          order: hwc
+          scale: 1./255.
+          std:
+          - 0.229
+          - 0.224
+          - 0.225
+      - ToCHWImage: null
+      - KeepKeys:
+          keep_keys:
+          - image
+          - threshold_map
+          - threshold_mask
+          - shrink_map
+          - shrink_mask
+    loader:
+      batch_size_per_card: 1
+      drop_last: false
+      num_workers: 4
+      shuffle: true
+  lr_scheduler:
+    name: CosineDecayLR
+    warmup_epoch: 2
+  optimizer:
+    lr: 0.001
+    name: Adam
+  profiler_options: null
+train_steps: 24000

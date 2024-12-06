@@ -24,7 +24,7 @@ Architecture:
   Transform:
   Backbone:
     name: ResNet_vd
-    layers: 50
+    layers: 18
     disable_se: True
   Neck:
     name: DBFPN

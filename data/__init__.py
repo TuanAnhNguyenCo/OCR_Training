@@ -69,7 +69,7 @@ def set_signal_handlers():
             signal.signal(signal.SIGTERM, term_mp)
 
 
-def build_dataloader(config, mode, device, logger, seed=None, return_sampler=False):
+def build_dataloader(config, mode, logger, seed=None, return_sampler=False):
     config = copy.deepcopy(config)
     module_name = config[mode]["dataset"]["name"]
     dataset = eval(module_name)(config, mode, logger, seed)

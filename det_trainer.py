@@ -33,20 +33,18 @@ class DetectionModule(L.LightningModule):
     
     def validation_step(self, batch, batch_idx):
         output = self.model(batch[0])
-        print(batch[1].shape)
         output = {key:value.cpu().numpy() for key, value in output.items()}
         batch_numpy = []
         batch = [b.cpu() for b in batch]
         for item in batch:
             batch_numpy.append(item.numpy())
-        print(batch_numpy[1].shape)
         post_result = self.post_process_func(output, batch_numpy[1])
         self.metric_class(post_result, batch_numpy)
         metric = {key: value + metric[key] for key, value in self.metric_class.get_metric().items()}
         self.log_dict(metric,prog_bar=True)
     
     def test_step(self, batch, batch_idx):
-        output = self.model(batch[0])
+        output = self.model(batch[0].to('cuda'))
         output = {key:value.cpu().numpy() for key, value in output.items()}
         batch_numpy = []
         batch = [b.cpu() for b in batch]
@@ -88,9 +86,9 @@ class DetectionDataModule(L.LightningDataModule):
         test_dataloader = build_dataloader(self.config, "Eval", logger=self.logger, return_sampler=False)
         return test_dataloader
     
-    def transfer_batch_to_device(self, batch, device, dataloader_idx):
-        batch = [i.to(device) for i in batch]
-        return batch
+    # def transfer_batch_to_device(self, batch, device, dataloader_idx):
+    #     batch = [i.to(device) for i in batch]
+    #     return batch
 
 
 if __name__ == '__main__':

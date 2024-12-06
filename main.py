@@ -47,7 +47,7 @@ if __name__ == "__main__":
     data = DetectionDataModule(config=config, logger=logger)
     model = DetectionModule(config=config,train_steps=len(data.train_dataloader()))
     checkpoint_callback = ModelCheckpoint(dirpath="./", save_top_k=1, monitor="hmean")
-    trainer = L.Trainer(default_root_dir="./", callbacks=[checkpoint_callback, StochasticWeightAveraging(swa_lrs=1e-2)],precision="bf16",
+    trainer = L.Trainer(default_root_dir="./", callbacks=[checkpoint_callback, StochasticWeightAveraging(swa_lrs=1e-2)],precision="16",
                 accumulate_grad_batches=min(1, 64//config['Train']['loader']['batch_size_per_card']) if config['Global']["grad_accum_steps"] == True else 1,
                 )
     trainer.fit(model,data)

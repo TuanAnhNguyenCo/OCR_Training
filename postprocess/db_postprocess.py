@@ -201,6 +201,8 @@ class DBPostProcess(object):
         box[:, 0] = box[:, 0] - xmin
         box[:, 1] = box[:, 1] - ymin
         cv2.fillPoly(mask, box.reshape(1, -1, 2).astype("int32"), 1)
+        print("\n\n\n\nFUCKKkkkkk",bitmap[ymin : ymax + 1, xmin : xmax + 1].shape, mask.shape)
+        print("\n\n\n\nFUCKKkkkkk",type(bitmap[ymin : ymax + 1, xmin : xmax + 1]), type(mask))
         print("\n\n\n\nFUCKKkkkkk",bitmap[ymin : ymax + 1, xmin : xmax + 1])
         print(mask)
         return cv2.mean(bitmap[ymin : ymax + 1, xmin : xmax + 1], mask)[0]

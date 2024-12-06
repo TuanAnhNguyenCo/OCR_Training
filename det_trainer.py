@@ -23,11 +23,12 @@ class DetectionModule(L.LightningModule):
     def training_step(self, batch, batch_idx):
         opt = self.optimizers()
         output = self.model(batch[0])
-        loss = self.loss_class(output, batch) / self.trainer.accumulate_grad_batches
+        loss = self.loss_class(output, batch)
+        avg_loss = loss["loss"] / self.trainer.accumulate_grad_batches
+        self.manual_backward(avg_loss)
         if (batch_idx + 1) % self.trainer.accumulate_grad_batches == 0:
             opt.step()
             opt.zero_grad()
-        avg_loss = loss["loss"]
         self.log_dict(loss,prog_bar=True)
         sch = self.lr_schedulers()
         sch.step(self.trainer.current_epoch, batch_idx)

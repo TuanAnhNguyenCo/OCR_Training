@@ -32,6 +32,7 @@ class DetectionModule(L.LightningModule):
         return avg_loss
     
     def validation_step(self, batch, batch_idx):
+        print("Validation Step", batch[0].shape)
         output = self.model(batch[0])
         output = {key:value.cpu().numpy() for key, value in output.items()}
         batch_numpy = []
@@ -77,12 +78,12 @@ class DetectionDataModule(L.LightningDataModule):
         return train_dataloader
 
     def val_dataloader(self):
-        self.config['Eval']['dataset']['label_file_list'] = [self.config['Eval']['dataset']['label_file_list'].replace("test.txt",'val.txt')]
+        self.config['Eval']['dataset']['label_file_list'] = [self.config['Eval']['dataset']['label_file_list'][0].replace("test.txt",'val.txt')]
         val_dataloader = build_dataloader(self.config, "Eval", logger=self.logger, return_sampler=False)
         return val_dataloader
 
     def test_dataloader(self):
-        self.config['Eval']['dataset']['label_file_list'] = [self.config['Eval']['dataset']['label_file_list'].replace("val.txt",'test.txt')]
+        self.config['Eval']['dataset']['label_file_list'] = [self.config['Eval']['dataset']['label_file_list'][0].replace("val.txt",'test.txt')]
         test_dataloader = build_dataloader(self.config, "Eval", logger=self.logger, return_sampler=False)
         return test_dataloader
     

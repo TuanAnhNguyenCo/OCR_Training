@@ -46,11 +46,11 @@ class DetectionModule(L.LightningModule):
     
     def test_step(self, batch, batch_idx):
         output = self.model(batch[0])
-        output = {key:value.cpu().numpy() for key, value in output.items()}
+        output = {key:value.cpu().numpy().astype(np.float32) for key, value in output.items()}
         batch_numpy = []
         batch = [b.cpu() for b in batch]
         for item in batch:
-            batch_numpy.append(item.numpy())
+            batch_numpy.append(item.numpy().astype(np.float32))
         post_result = self.post_process_func(output, batch_numpy[1])
         self.metric_class(post_result, batch_numpy)
         self.log_dict(self.metric_class.get_metric(),prog_bar=True)

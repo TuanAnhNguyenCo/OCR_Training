@@ -43,8 +43,7 @@ class DetectionModule(L.LightningModule):
             batch_numpy.append(item.numpy().astype(np.float32))
         post_result = self.post_process_func(output, batch_numpy[1])
         self.metric_class(post_result, batch_numpy)
-        print(self.metric_class.get_metric())
-        self.log_dict(self.metric_class.get_metric(),prog_bar=True)
+        self.log("hmean",self.metric_class.get_metric()["hmean"])
     
     def test_step(self, batch, batch_idx):
         output = self.model(batch[0])
@@ -55,7 +54,7 @@ class DetectionModule(L.LightningModule):
             batch_numpy.append(item.numpy().astype(np.float32))
         post_result = self.post_process_func(output, batch_numpy[1])
         self.metric_class(post_result, batch_numpy)
-        self.log_dict(self.metric_class.get_metric(),prog_bar=True)
+        self.log("hmean",self.metric_class.get_metric()["hmean"])
 
     def configure_optimizers(self):
         optimizer, lr_scheduler = build_optimizer(

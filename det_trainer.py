@@ -6,6 +6,7 @@ from postprocess import build_post_process
 from metrics import build_metric
 from data import build_dataloader
 import numpy as np
+import torch
 
 
 class DetectionModule(L.LightningModule):
@@ -43,8 +44,12 @@ class DetectionModule(L.LightningModule):
             batch_numpy.append(item.numpy().astype(np.float32))
         post_result = self.post_process_func(output, batch_numpy[1])
         self.metric_class(post_result, batch_numpy)
-        print(self.metric_class.get_metric())
         self.log("hmean",self.metric_class.get_metric()["hmean"],prog_bar=True)
+    
+    def on_validation_epoch_end(self):
+        all_preds = torch.stack(self.validation_step_outputs)
+        print(all_preds)
+        super().on_validation_epoch_end()
     
     def test_step(self, batch, batch_idx):
         output = self.model(batch[0])

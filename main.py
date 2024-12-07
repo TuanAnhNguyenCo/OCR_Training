@@ -45,7 +45,8 @@ if __name__ == "__main__":
     seed = config["Global"]["seed"] if "seed" in config["Global"] else 1024
     set_seed(seed)
     data = DetectionDataModule(config=config, logger=logger)
-    model = DetectionModule(config=config,train_steps=len(data.train_dataloader())).load_from_checkpoint("/kaggle/working/epoch=0-step=1500.ckpt")
+    # model = DetectionModule(config=config,train_steps=len(data.train_dataloader())).load_from_checkpoint("/kaggle/working/epoch=0-step=1500.ckpt")
+    model = DetectionModule.load_from_checkpoint("/kaggle/working/epoch=0-step=1500.ckpt")
     checkpoint_callback = ModelCheckpoint(dirpath="./", save_top_k=1, monitor="hmean")
     trainer = L.Trainer(default_root_dir="./", callbacks=[checkpoint_callback, StochasticWeightAveraging(swa_lrs=1e-2)],precision="16-mixed",
                 accumulate_grad_batches=min(1, 64//config['Train']['loader']['batch_size_per_card']) if config['Global']["grad_accum_steps"] == True else 1,

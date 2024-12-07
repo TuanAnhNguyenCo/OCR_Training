@@ -43,6 +43,7 @@ class DetectionModule(L.LightningModule):
             batch_numpy.append(item.numpy().astype(np.float32))
         post_result = self.post_process_func(output, batch_numpy[1])
         self.metric_class(post_result, batch_numpy)
+        print(self.metric_class.get_metric())
         self.log("hmean",self.metric_class.get_metric()["hmean"],prog_bar=True)
     
     def test_step(self, batch, batch_idx):

@@ -47,7 +47,7 @@ class DetectionModule(L.LightningModule):
         post_result = self.post_process_func(output, batch_numpy[1])
         self.metric_class(post_result, batch_numpy)
         result = self.metric_class.get_metric()
-        self.log("hmean",result["hmean"])
+        self.log("hmean",result["hmean"],prog_bar=True)
         self.metric = {key: value + self.metric[key] for key, value in result.items()}
         self.count += 1
         
@@ -69,7 +69,7 @@ class DetectionModule(L.LightningModule):
         post_result = self.post_process_func(output, batch_numpy[1])
         self.metric_class(post_result, batch_numpy)
         result = self.metric_class.get_metric()
-        self.log("hmean",result["hmean"])
+        self.log("hmean",result["hmean"],prog_bar=True)
         self.metric = {key: value + self.metric[key] for key, value in result.items()}
         self.count += 1
     

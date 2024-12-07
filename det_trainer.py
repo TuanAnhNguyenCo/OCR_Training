@@ -43,9 +43,10 @@ class DetectionModule(L.LightningModule):
         batch_numpy = []
         batch = [b.cpu() for b in batch]
         for item in batch:
-            batch_numpy.append(item.numpy().astype(np.float32))
+            batch_numpy.append(item.numpy())
         post_result = self.post_process_func(output, batch_numpy[1])
         self.metric_class(post_result, batch_numpy)
+        print(self.metric_class.get_metric())
         self.log("hmean",self.metric_class.get_metric()["hmean"])
         self.metric = {key: value + self.metric[key] for key, value in self.metric_class.get_metric().items()}
         self.count += 1

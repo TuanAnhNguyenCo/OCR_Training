@@ -20,8 +20,6 @@ class DetectionModule(L.LightningModule):
         self.automatic_optimization = False
         self.config = config
         self.train_steps = train_steps
-        self.metric = {'precision': 0, 'recall': 0.0, 'hmean': 0}
-        self.count = 0
     
     def training_step(self, batch, batch_idx):
         opt = self.optimizers()
@@ -47,18 +45,8 @@ class DetectionModule(L.LightningModule):
         post_result = self.post_process_func(output, batch_numpy[1])
         self.metric_class(post_result, batch_numpy)
         result = self.metric_class.get_metric()
-        self.log("hmean",result["hmean"],prog_bar=True)
-        self.metric = {key: value + self.metric[key] for key, value in result.items()}
-        self.count += 1
+        self.log_dict(result,prog_bar=True,sync_dist=True,on_step=True, on_epoch=True,)
         
-    
-    def on_validation_epoch_end(self):
-        metric = {key: value / self.count for key, value in self.metric.items()}
-        print("Validation Metric: ", metric)
-        self.metric = {'precision': 0, 'recall': 0.0, 'hmean': 0}
-        self.count = 0
-        super().on_validation_epoch_end()
-    
     def test_step(self, batch, batch_idx):
         output = self.model(batch[0])
         output = {key:value.cpu().numpy().astype(np.float32) for key, value in output.items()}
@@ -69,17 +57,8 @@ class DetectionModule(L.LightningModule):
         post_result = self.post_process_func(output, batch_numpy[1])
         self.metric_class(post_result, batch_numpy)
         result = self.metric_class.get_metric()
-        self.log("hmean",result["hmean"],prog_bar=True)
-        self.metric = {key: value + self.metric[key] for key, value in result.items()}
-        self.count += 1
+        self.log_dict(result,prog_bar=True,sync_dist=True,on_step=True, on_epoch=True,)
     
-    def on_test_epoch_end(self):
-        metric = {key: value / self.count for key, value in self.metric.items()}
-        print("Test Metric: ", metric)
-        self.metric = {'precision': 0, 'recall': 0.0, 'hmean': 0}
-        self.count = 0
-        super().on_test_epoch_end()
-
     def configure_optimizers(self):
         optimizer, lr_scheduler = build_optimizer(
             config=self.config,

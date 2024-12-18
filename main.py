@@ -46,7 +46,7 @@ if __name__ == "__main__":
     set_seed(seed)
     data = DetectionDataModule(config=config, logger=logger)
     model = DetectionModule(config=config,train_steps=len(data.train_dataloader()))
-    checkpoint_callback = ModelCheckpoint(dirpath="./", save_top_k=1, monitor="hmean")
+    checkpoint_callback = ModelCheckpoint(dirpath="./", save_top_k=1, monitor="hmean", mode='max')
     trainer = L.Trainer(default_root_dir="./", callbacks=[checkpoint_callback, StochasticWeightAveraging(swa_lrs=1e-2)],precision="16-mixed",
                 accumulate_grad_batches=min(1, 64//config['Train']['loader']['batch_size_per_card']) if config['Global']["grad_accum_steps"] == True else 1,
                 profiler="simple"
